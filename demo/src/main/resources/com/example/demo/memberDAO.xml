@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.DAO.memberDAO"><!--namespace를 통해 UserDAO와 연결합니다. -->
+  		
+  <select id="selectLogin" parameterType="com.example.demo.model.member"
+  resultType="Integer"
+  >
+    select count(*) from member where uid=#{uid} and upwd=#{upwd}
+  </select>
+
+  <select id="selectDup" parameterType="com.example.demo.model.member"
+  resultType="Integer">
+    select count(*) from member where uid=#{uid}
+  </select>
+
+  <select id="selectUserList" resultType="com.example.demo.model.member">
+    select * from member 
+  </select>
+
+  <select id="authCheck"  parameterType="com.example.demo.model.member"
+  resultType="Integer">
+    select count(*) from auth where name=#{uid}
+  </select>
+
+  <insert id="insertJoin" parameterType="com.example.demo.model.member">
+    insert into member values((select userno from member order by userno
+    desc limit 1)+1,
+    'yes', 1 ,#{udepart} , #{uid} , #{umacadress} ,#{uname} ,#{uphone}
+    ,#{upwd}
+    )
+  </insert>
+  <delete id="deleteUser" parameterType="com.example.demo.model.member">
+    delete from member where uid=#{uid} and upwd=#{upwd}
+  </delete>
+
+  <update id="updateUser" parameterType="com.example.demo.model.member">
+    update from member set uid=#{uid}, upwd=#{upwd} ,
+    uname=#{uname},udepart= #{udepart} where uid=#{uid}
+  </update>
+
+
+</mapper>

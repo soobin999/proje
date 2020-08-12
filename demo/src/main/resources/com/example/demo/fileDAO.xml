@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.DAO.fileDAO"><!--namespace를 통해 UserDAO와 연결합니다. -->
+  		
+<insert id="insertFile" parameterType="com.example.demo.model.fileUpload">
+    insert into file_upload values ( #{file_name}, #{file_route},#{file_size},NOW(),#{user_no},#{origin_name})
+</insert>
+<select id="selectFile" parameterType="com.example.demo.model.fileUpload" resultType="String">
+    select file_route from file_upload where file_name=#{file_name} limit 1
+</select>
+<select id="selectAllFile"  resultType="com.example.demo.model.fileUpload">
+    select * from file_upload
+</select>
+<delete id="deleteFile" parameterType="com.example.demo.model.fileUpload">
+    delete from file_upload where file_name=#{file_name}
+</delete>
+<select id="selectFileName" parameterType="com.example.demo.model.fileUpload" resultType="String">
+    select origin_name from file_upload where file_name=#{file_name} limit 1
+</select>
+
+</mapper>
